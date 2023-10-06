@@ -15,7 +15,7 @@ class CreateShipmentCurrentStatusesTable extends Migration
     {
         Schema::create('shipment_current_statuses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('client_id');
             $table->string('tracking_number');  
             $table->string('status');  
             $table->string('schedule_delivery_date');  

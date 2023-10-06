@@ -15,7 +15,7 @@ class CreateShipmentProgressTable extends Migration
     {
         Schema::create('shipment_progress', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('client_id');
             $table->foreignId('shipper_id');
             $table->string('tracking_number');  
             $table->string('status');  
