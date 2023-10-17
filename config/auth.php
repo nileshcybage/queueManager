@@ -46,6 +46,8 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        
     ],
 
     /*
@@ -75,6 +77,7 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        
     ],
 
     /*
@@ -99,6 +102,7 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+         
     ],
 
     /*

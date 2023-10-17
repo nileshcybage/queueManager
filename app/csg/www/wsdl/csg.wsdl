@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"
+    xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://usautoparts.com" targetNamespace="http://usautoparts.com">
+    <wsdl:types>
+        <s:schema elementFormDefault="qualified" targetNamespace="http://usautoparts.com">
+            <s:import namespace="http://www.w3.org/2001/XMLSchema"/>
+            <s:element name="getTrackingHistory">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="strShippingCompanyCode" type="s:string"/>
+                        <s:element minOccurs="0" maxOccurs="1" name="strTrackingNumber" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+
+             <s:element name="getTrackingHistoryResult">
+                <s:complexType>
+                    <s:sequence>
+                                    <s:element minOccurs="0" maxOccurs="1" name="CurrentStatus" type="s:string"/>
+				    <s:element minOccurs="0" maxOccurs="1" name="ScheduledDeliveryDate" type="s:string"/>
+				    <s:element minOccurs="0" maxOccurs="1" name="ShippedOnDate" type="s:string"/>
+    				    <s:element minOccurs="0" maxOccurs="1" name="ShippedOnTime" type="s:string"/>
+				    <s:element minOccurs="0" maxOccurs="1" name="ShippedToCity" type="s:string"/>
+                                    <s:element minOccurs="0" maxOccurs="1" name="ShippedToState" type="s:string"/>
+                                    <s:element minOccurs="0" maxOccurs="1" name="ShippedToZIPCode" type="s:string"/>
+                                    <s:element minOccurs="0" maxOccurs="1" name="ShippedToCountry" type="s:string"/>
+				     <s:element minOccurs="0" maxOccurs="1" name="ShippedToResidential" type="s:string"/>
+				     <s:element minOccurs="0" maxOccurs="1" name="ServiceType" type="s:string"/>
+				     <s:element minOccurs="0" maxOccurs="1" name="CarrierCode" type="s:string"/>
+                                    <s:element name="Event"  minOccurs="0" maxOccurs="unbounded">
+                            <s:complexType>
+                                <s:sequence>                                    
+                                    <s:element minOccurs="0" maxOccurs="1" name="EventDate" type="s:string"/>
+                                    <s:element minOccurs="0" maxOccurs="1" name="EventTime" type="s:string"/>
+                                    <s:element minOccurs="0" maxOccurs="1" name="EventCity" type="s:string"/>
+                                    <s:element minOccurs="0" maxOccurs="1" name="EventState" type="s:string"/>
+                                    <s:element minOccurs="0" maxOccurs="1" name="EventZIPCode" type="s:string"/>
+                                    <s:element minOccurs="0" maxOccurs="1" name="EventCountry" type="s:string"/>
+                                    <s:element minOccurs="0" maxOccurs="1" name="EventDesc" type="s:string"/>
+                                </s:sequence>
+                            </s:complexType>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+
+        </s:schema>
+    </wsdl:types>
+    <wsdl:message name="getTrackingHistorySoapIn">
+        <wsdl:part name="parameters" element="tns:getTrackingHistory"/>
+    </wsdl:message>
+    <wsdl:message name="getTrackingHistorySoapOut">
+        <wsdl:part name="parameters" element="tns:getTrackingHistoryResult"/>
+    </wsdl:message>
+
+    <wsdl:portType name="CSGSOAP">
+        <wsdl:operation name="getTrackingHistory">
+            <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Get Tracking Details</documentation>
+            <wsdl:input message="tns:getTrackingHistorySoapIn"/>
+            <wsdl:output message="tns:getTrackingHistorySoapOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CSGSOAP" type="tns:CSGSOAP">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getTrackingHistory">
+            <soap:operation soapAction="./service/getTrackingHistory" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="CSG">
+        <documentation xmlns="http://schemas.xmlsoap.org/wsdl/"/>
+        <wsdl:port name="CSGSOAP" binding="tns:CSGSOAP">
+            <soap:address location="https://csg.usautoparts.com/services/service.php"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

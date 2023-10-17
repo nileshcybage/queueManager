@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Third Party Services
+    | Third Party credentials
     |--------------------------------------------------------------------------
     |
     | This file is for storing the credentials for third party services such
@@ -14,21 +14,20 @@ return [
     |
     */
 
-    'mailgun' => [
-        'domain' => env('MAILGUN_DOMAIN'),
-        'secret' => env('MAILGUN_SECRET'),
-        'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
+    'fedex' => [
+        'wsdl_v4' => 'TrackService_v4.wsdl',
+        'key' => 'qtjfRrzwKWTRdkol',
+        'password' => '0OsK7Xc09iPxGCOQSNaDc0zxH',
+        'shipaccount' => '248170999',
+        'meter'     => '100578012',
+        'billaccount' => 'XXX',
+        'dutyaccount' => 'XXX',
+        'type' => 'TRACKING_NUMBER_OR_DOORTAG',
+        'wsdl_v18' => 'TrackService_v18.wsdl'
     ],
 
-    'postmark' => [
-        'token' => env('POSTMARK_TOKEN'),
-    ],
 
-    'ses' => [
-        'key' => env('AWS_ACCESS_KEY_ID'),
-        'secret' => env('AWS_SECRET_ACCESS_KEY'),
-        'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
-    ],
 
 
 ];
+
