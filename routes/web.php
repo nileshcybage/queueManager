@@ -26,3 +26,7 @@ Route::get('/tracking/{shipper}/{trackingnumber}', [ShipmentProgressController::
 
 require __DIR__.'/auth.php';
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
