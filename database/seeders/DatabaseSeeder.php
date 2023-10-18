@@ -24,23 +24,26 @@ class DatabaseSeeder extends Seeder
         DB::table("users")->insert([
             "name" => 'admin',
             "email" => 'admin@admin.com',
-            "password" => Hash::make('password')
+            "password" => Hash::make('password'),
+            "is_admin" => 'true',
+            "uuid" => Str::uuid()->toString()
 
         ]);
 
         DB::table("users")->insert([
             "name" => 'editor',
             "email" => 'editor@editor.com',
-            "password" => Hash::make('password')
+            "password" => Hash::make('password'),
+            "is_admin" => 'true',
+            "uuid" => Str::uuid()->toString()
 
         ]);
 
-        $client1 = DB::table("clients")->insertGetId([
+        $client1 = DB::table("users")->insertGetId([
             "name" => 'carparts',
             "email" => 'carparts@carparts.com',
             "password" => Hash::make('password'),
-            'client_id' => Str::uuid()->toString(),
-            'client_secret' => Str::uuid()->toString()
+            "uuid" => Str::uuid()->toString()
         ]);
 
         $shipper1 = DB::table("shippers")->insertGetId([
@@ -65,9 +68,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table("tracking_queues")->insert([
-            "client_id" => $client1,
+            "user_id" => $client1,
             "shipper_id" => $shipper1,
-            'tracking_number' => rand(1000,9000)
+            'tracking_number' => '398715745931' // live tracking id
         ]);
 
 

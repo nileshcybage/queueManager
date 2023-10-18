@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () { return view('dashboard'); })->middleware(['auth'])->name('dashboard');
-Route::get('/tracking/{shipper}', [ShipmentProgressController::class,'getTracking'])->middleware(['auth'])->name('gettracking');
+Route::get('/tracking/{shipper}/{trackingnumber}', [ShipmentProgressController::class,'getTracking'])->middleware(['auth'])->name('gettracking');
 
 
 

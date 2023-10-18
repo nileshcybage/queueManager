@@ -15,9 +15,9 @@ class CreateTrackingQueuesTable extends Migration
     {
         Schema::create('tracking_queues', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('client_id');
+            $table->foreignId('user_id');
             $table->foreignId('shipper_id');
-            $table->string('tracking_number'); 
+            $table->string('tracking_number');
             $table->timestamps();
         });
     }

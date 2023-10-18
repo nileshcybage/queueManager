@@ -11,7 +11,7 @@ class Fedex
         $this->wsdlPath =  storage_path('public/wsdl/' . Config('shippers.fedex.wsdl_v18'));
     }
 
-    public function getTracking(){
+    public function getTracking($trackingNumber){
         dd($this->wsdlPath);
     }
 

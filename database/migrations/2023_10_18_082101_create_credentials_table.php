@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateShipmentProgressTable extends Migration
+class CreateCredentialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateShipmentProgressTable extends Migration
      */
     public function up()
     {
-        Schema::create('shipment_progress', function (Blueprint $table) {
+        Schema::create('credentials', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('shipper_id');
-            $table->string('tracking_number');
-            $table->string('status');
-            $table->string('schedule_delivery_date');
-            $table->string('delivery_date');
-            $table->string('create_datetime');
+            $table->string('username')->nullable();
+            $table->string('password')->nullable();
+            $table->string('key')->nullable();
+            $table->string('token')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class CreateShipmentProgressTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shipment_progress');
+        Schema::dropIfExists('credentials');
     }
 }

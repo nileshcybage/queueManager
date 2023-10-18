@@ -83,11 +83,11 @@ class ShipmentProgressController extends Controller
         //
     }
 
-    public function getTracking($shipper){
+    public function getTracking($shipper,$trackingNumber){
         //
         $ServiceModel = '\\App\\Services\\'. $shipper;
         $shipperServiceContainer = new $ServiceModel;
-        return $shipperServiceContainer->getTracking();
+        return $shipperServiceContainer->getTracking($trackingNumber);
 
     }
 }
