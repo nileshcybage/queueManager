@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\ShipmentProgressController;
-use App\Services\Fedex;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\ShipmentProgressController;
+use App\Http\Controllers\ShipperController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,19 +21,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+Route::get('/tracking/{shipper}/{trackingnumber}', [ShipmentProgressController::class, 'getTracking'])->middleware(['auth'])->name('gettracking');
 
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
-
-
-Route::get('/tracking/{shipper}/{trackingnumber}', [ShipmentProgressController::class,'getTracking'])->middleware(['auth'])->name('gettracking');
+    Route::group(['middleware' => 'auth'], function () {
 
 
 
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
+
+
+        Route::get('/shippers', [ShipperController::class, 'index'])->name('shippers');
+        Route::get('/users', [UserController::class, 'index'])->name('users');
+    });
+});
+
+
+
+require __DIR__ . '/auth.php';
 
 
 
