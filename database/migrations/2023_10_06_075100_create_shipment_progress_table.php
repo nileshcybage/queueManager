@@ -19,9 +19,9 @@ class CreateShipmentProgressTable extends Migration
             $table->foreignId('shipper_id');
             $table->string('tracking_number');
             $table->string('status');
-            $table->string('schedule_delivery_date');
-            $table->string('delivery_date');
-            $table->string('create_datetime');
+            $table->string('schedule_delivery_date')->default('0000:00:00 00:00:00');
+            $table->string('delivery_date')->default('0000:00:00 00:00:00');
+            $table->string('create_datetime')->default('0000:00:00 00:00:00');
             $table->timestamps();
         });
     }

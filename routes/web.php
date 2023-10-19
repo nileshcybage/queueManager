@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ShipmentProgressController;
+use App\Services\Fedex;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,14 +21,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () { return view('dashboard'); })->middleware(['auth'])->name('dashboard');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+
+
 Route::get('/tracking/{shipper}/{trackingnumber}', [ShipmentProgressController::class,'getTracking'])->middleware(['auth'])->name('gettracking');
 
 
 
-require __DIR__.'/auth.php';
 
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+

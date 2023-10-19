@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Services;
-
+use App\Models\TrackingQueue;
+use App\Jobs\trackingStatus;
 
 class Fedex
 {
@@ -16,8 +17,6 @@ class Fedex
         //dd($this->wsdlPath);
 
         try {
-
-
             $arrRequest = [];
             $arrRequest['WebAuthenticationDetail']['UserCredential']['Key'] = config('shippers.fedex.key');
             $arrRequest['WebAuthenticationDetail']['UserCredential']['Password'] = config('shippers.fedex.password');
@@ -29,12 +28,7 @@ class Fedex
             $arrRequest['Version']['Intermediate']     ='0';
             $arrRequest['Version']['Minor']     ='0';
             $arrRequest['PackageIdentifier']['Value']     =$trackingNumber;
-            $arrRequest['PackageIdentifier']['Type']     = config('shippers.fedex.type');;
-
-           // dd($arrRequest);
-
-
-
+            $arrRequest['PackageIdentifier']['Type']     = config('shippers.fedex.type');
             $client = new \SoapClient($this->wsdlPath, array('trace' => 1,'cache_wsdl' => WSDL_CACHE_NONE));
             $response = $client->track($arrRequest);
             dd($response);
@@ -42,6 +36,8 @@ class Fedex
            dd($e->getMessage());
         }
     }
+
+
 
 
 
