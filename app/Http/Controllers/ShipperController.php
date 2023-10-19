@@ -14,7 +14,8 @@ class ShipperController extends Controller
      */
     public function index()
     {
-        //
+        $data = Shipper::all();
+        return view("admin/shippers/index", compact("data"));
     }
 
     /**

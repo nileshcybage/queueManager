@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\ShipmentProgressController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ShipmentProgressController;
+use App\Http\Controllers\ShipperController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -19,12 +21,31 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () { return view('dashboard'); })->middleware(['auth'])->name('dashboard');
-Route::get('/tracking/{shipper}/{trackingnumber}', [ShipmentProgressController::class,'getTracking'])->middleware(['auth'])->name('gettracking');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
+
+Route::get('/tracking/{shipper}/{trackingnumber}', [ShipmentProgressController::class, 'getTracking'])->middleware(['auth'])->name('gettracking');
+
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+
+    Route::group(['middleware' => 'auth'], function () {
+
+ 
+
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
+        
+
+        Route::get('/shippers', [ShipperController::class, 'index'])->name('shippers');
+        Route::get('/users', [UserController::class, 'index'])->name('users');
+    });
+});
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 Auth::routes();
