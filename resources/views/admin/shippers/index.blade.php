@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
 
 
-        <table class="table" id="table">
+        <table class="table table-striped table-bordered" style="width:100%" id="table">
             <thead>
                 <tr>
                     <th>#</th>
