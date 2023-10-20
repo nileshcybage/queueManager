@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\runTrackingQueue::class,
+        Commands\getTrackingStatus::class,
     ];
 
     /**
@@ -26,6 +27,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('runTrackingQueue')->everyMinute()->withoutOverlapping();
+        $schedule->command('getTrackingStatus')->everyMinute()->withoutOverlapping();
     }
 
     /**

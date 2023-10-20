@@ -11,9 +11,11 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Cache;
 
 use App\Services\Fedex;
+use App\Http\Controllers\JobController;
 
-class trackingStatus implements ShouldQueue,ShouldBeUnique
+class trackingStatus implements ShouldQueue
 {
+   // use Dispatchable, InteractsWithQueue, SerializesModels;
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
@@ -24,12 +26,17 @@ class trackingStatus implements ShouldQueue,ShouldBeUnique
     private $wsdlPath;
     private $trackingNumber;
     private $serviceType;
+    private $controllerObject;
+    private $response;
+
 
     public function __construct($trackingNumber,$serviceType = 'REST')
     {
         $this->wsdlPath =  public_path('storage/wsdl/' . Config('shippers.fedex.wsdl_v18'));
         $this->trackingNumber = $trackingNumber;
         $this->serviceType = $serviceType;
+        $this->controllerObject = new JobController();
+        $this->response = '';
     }
 
     /**
@@ -39,11 +46,14 @@ class trackingStatus implements ShouldQueue,ShouldBeUnique
      */
     public function handle()
     {
-        return ($this->serviceType == 'SOAP') ?  $this->SoapService() : $this->restService();
+
+       ($this->serviceType == 'SOAP') ?  $this->SoapService() : $this->restService();
+        //dd($this->response);
+        $this->controllerObject->saveTrackingStatus($this->trackingNumber,'in');
     }
 
 
-    private function SoapService(){
+    public function SoapService(){
 
         try {
             $arrRequest = [];
@@ -59,16 +69,19 @@ class trackingStatus implements ShouldQueue,ShouldBeUnique
             $arrRequest['PackageIdentifier']['Value']     =$this->trackingNumber;
             $arrRequest['PackageIdentifier']['Type']     = config('shippers.fedex.type');
             $client = new \SoapClient($this->wsdlPath, array('trace' => 1,'cache_wsdl' => WSDL_CACHE_NONE));
-            $response = $client->track($arrRequest);
-            dd($response);
-            dd('ghh');
+            $this->response  = $client->track($arrRequest);
+
+
+
         } catch (\SoapFault $e) {
-           dd($e->getMessage());
+            print $e->getMessage() ."\n";
         }
 
     }
 
-    private function restService(){
+    public function restService(){
         dd('33');exit;
     }
+
+
 }
