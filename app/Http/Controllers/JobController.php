@@ -76,14 +76,14 @@ class JobController extends Controller
 
     public function saveTrackingStatus($trackingNumber,$trackingStatus){
         try{
-            $shipmentProgressObj = ShipmentProgress::where('tracking_number',$trackingNumber)->get();
+            $shipmentProgressObj = ShipmentProgress::where('tracking_number',$trackingNumber)->first();
         }
         catch(Exception $e){
-            print $e->getMessage() ."\n";
+            print "JobControllerError :" .$e->getMessage() ."\n";
             return 0;
         }
 
-        if($shipmentProgressObj->isEmpty()){
+        if(empty($shipmentProgressObj)){
             print "\n no records available to update status";
             return 0;
         }
@@ -99,7 +99,7 @@ class JobController extends Controller
 
         }
         catch(Exception $e){
-            print $e->getMessage() ."\n";
+            print "UpdateCallError : " . $e->getMessage() ."\n";
             return 0;
         }
 

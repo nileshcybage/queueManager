@@ -9,9 +9,11 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Cache;
+use App\Services\RabbitMQService;
 
 use App\Services\Fedex;
 use App\Http\Controllers\JobController;
+use Exception;
 
 class trackingStatus implements ShouldQueue
 {
@@ -47,9 +49,28 @@ class trackingStatus implements ShouldQueue
     public function handle()
     {
 
-       ($this->serviceType == 'SOAP') ?  $this->SoapService() : $this->restService();
+       //($this->serviceType == 'SOAP') ?  $this->SoapService() : $this->restService();
         //dd($this->response);
-        $this->controllerObject->saveTrackingStatus($this->trackingNumber,'in');
+        $message = $this->trackingNumber. '|Delivered';
+        print $message . "\n\t";
+
+        try{
+
+            print  " try block   \n\t";
+            $this->controllerObject->saveTrackingStatus($this->trackingNumber,'in');
+            print  " update to db \n\t";
+            $rabbitMQService = new RabbitMQService();
+          //  var_dump($rabbitMQService);
+            $message = $this->trackingNumber. '|Delivered';
+            print $message . "\n\t";
+            print  " publish call   \n\t";
+            $response = $rabbitMQService->publish($message);
+
+        }catch(Exception $e){
+            print "QueueError : " . $e->getMessage() ."\n";
+        }
+        print  " end of handle function \n\t";
+
     }
 
 
@@ -74,7 +95,7 @@ class trackingStatus implements ShouldQueue
 
 
         } catch (\SoapFault $e) {
-            print $e->getMessage() ."\n";
+            print "SoapError : " . $e->getMessage() ."\n";
         }
 
     }
