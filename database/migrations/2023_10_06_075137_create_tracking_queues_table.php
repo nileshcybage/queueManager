@@ -18,6 +18,7 @@ class CreateTrackingQueuesTable extends Migration
             $table->foreignId('user_id');
             $table->foreignId('shipper_id');
             $table->string('tracking_number');
+           // $table->enum('is_complete',['no','false']);
             $table->timestamps();
         });
     }
