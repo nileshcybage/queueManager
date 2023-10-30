@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShipmentProgressController;
 use App\Http\Controllers\ShipperController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 
 
 /*
@@ -30,14 +31,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::group(['middleware' => 'auth'], function () {
 
 
-
-        Route::get('/dashboard', function () {
-            return view('dashboard');
-        })->name('dashboard');
-
-
         Route::get('/shippers', [ShipperController::class, 'index'])->name('shippers');
+        Route::get('/create-shipper', [ShipperController::class, 'create'])->name('create-shipper');
+        Route::post('/store-shipper', [ShipperController::class, 'store'])->name('store-shipper');
+
+        Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+        Route::get('/delete/{tablename}/{id}', [HomeController::class, 'delete'])->name('delete-entry');
         Route::get('/users', [UserController::class, 'index'])->name('users');
+        Route::get('/shipment-progress', [ShipmentProgressController::class, 'index'])->name('shipment-progress');
     });
 });
 

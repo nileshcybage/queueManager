@@ -32,7 +32,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/admin/dashboard') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -42,15 +42,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
+                        @if(Auth::user())
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ route('shippers') }}">Shippers<span class="sr-only"></span></a>
+                            </li>
 
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ route('shippers') }}">Shippers <span class="sr-only"></span></a>
-                        </li>
-<!--
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('users') }}">Users <span class="sr-only"></span></a>
-                        </li> -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('users') }}">Users<span class="sr-only"></span></a>
+                            </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('shipment-progress') }}">Shipment Progress<span class="sr-only"></span></a>
+                            </li>
+                        @endif
                     </ul>
 
 
@@ -73,7 +77,7 @@
                         @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
+                                {{ ucfirst(Auth::user()->name) }}
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

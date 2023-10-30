@@ -15,4 +15,14 @@ class TrackingQueue extends Model
         'shipper_id',
         'tracking_number',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function shipper()
+    {
+        return $this->hasOne(Shipper::class, 'id', 'shipper_id');
+    }
 }

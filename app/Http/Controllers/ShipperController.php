@@ -25,7 +25,7 @@ class ShipperController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.shippers.create');
     }
 
     /**
@@ -36,7 +36,15 @@ class ShipperController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'method_name' => 'required',
+        ]);
+
+        Shipper::create($request->all());
+
+        return redirect()->route('shippers')
+            ->with('success', 'Shipper created successfully.');
     }
 
     /**

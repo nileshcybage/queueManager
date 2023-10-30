@@ -12,17 +12,16 @@
             </div>
             @endif
 
-            <div class="mb-3">
-            </div>
-
-            <table class="table table-striped table-bordered  mt-3" style="width:100%" id="table">
+            <table class="table table-striped table-bordered" style="width:100%" id="table">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>UUID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
+                        <th>User Name</th>
+                        <th>Shipper Name</th>
+                        <th>Tracking Number</th>
+                        <th>Status</th>
+                        <th>Schedule Delivery Date</th>
+                        <th>Delivery Date</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -30,13 +29,13 @@
                     @foreach($data as $item)
                     <tr class="item{{$item->id}}">
                         <td>{{$item->id}}</td>
-                        <td>{{$item->uuid}}</td>
-                        <td>{{ucfirst($item->name)}}</td>
-                        <td>{{$item->email}}</td>
-                        <td>{{ $item->is_admin == "true" ? 'Admin' : 'User' }}</td>
-
-                        <td><a class="btn btn-danger btn-sm" href="{{ route('delete-entry',['users',$item->id]) }}">Delete</a>
-                            </button>
+                        <td>{{ ucwords($item->user->name) }}</td>
+                        <td>{{ ucwords($item->shipper->name) }}</td>
+                        <td>{{$item->tracking_number}}</td>
+                        <td>{{$item->status}}</td>
+                        <td>{{$item->schedule_delivery_date}}</td>
+                        <td>{{$item->delivery_date}}</td>
+                        <td><a class="btn btn-danger btn-sm" href="{{ route('delete-entry',['shipment_progress',$item->id]) }}">Delete</a>
                         </td>
                     </tr>
                     @endforeach

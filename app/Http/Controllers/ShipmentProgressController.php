@@ -14,7 +14,9 @@ class ShipmentProgressController extends Controller
      */
     public function index()
     {
-        //
+       $data = ShipmentProgress::with("shipper","user")->get();
+       return view("admin/shipment-progress/index", compact("data"));
+        
     }
 
     /**
