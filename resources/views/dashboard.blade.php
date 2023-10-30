@@ -6,14 +6,10 @@
 </style>
 @section('content')
 
-<div class="grey-bg container">
+<div class="container">
 
     <section id="stats-subtitle">
-        <div class="row">
-            <div class="col-12 mt-3 mb-2">
-                <h4 class="text-uppercase">Welcome to the Queue Manager Dashboard!!</h4>
-            </div>
-        </div>
+
 
         <div class="row">
             <div class="col-xl-4 col-md-12">
@@ -76,42 +72,48 @@
                     </div>
                 </div>
             </div>
+        </div>
 
 
 
-            <div class="row justify-content-md-center mt-5">
+        <div class="row justify-content-md-center mt-5">
 
-                <div class="col col-lg-10 ">
+            <div class="col col-lg-12">
+                <div class="card overflow-hidden">
+                    <div class="card-content">
+                        <div class="card-body cleartfix">
 
-                    <table class="table table-striped table-bordered" style="width:100%" id="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>User</th>
-                                <th>Shipper Name</th>
-                                <th>Tracking Number</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($data as $item)
-                            <tr class="item{{$item->id}}">
-                                <td>{{$item->id}}</td>
-                                <td>{{ ucwords($item->user->name) }}</td>
-                                <td>{{ ucwords($item->shipper->name) }}</td>
-                                <td>{{$item->tracking_number}}</td>
-                                <td><a class="btn btn-danger btn-sm" href="{{ route('delete-entry',['tracking_queues',$item->id]) }}">Delete</a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-
+                            <table class="table table-bordered" id="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>User</th>
+                                        <th>Shipper Name</th>
+                                        <th>Tracking Number</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($data as $item)
+                                    <tr class="item{{$item->id}}">
+                                        <td>{{$item->id}}</td>
+                                        <td>{{ ucwords($item->user->name) }}</td>
+                                        <td>{{ ucwords($item->shipper->name) }}</td>
+                                        <td>{{$item->tracking_number}}</td>
+                                        <td><a class="btn btn-danger btn-sm" href="{{ route('delete-entry',['tracking_queues',$item->id]) }}">Delete</a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-
         </div>
+
+
+    </div>
 
 
 </div>
