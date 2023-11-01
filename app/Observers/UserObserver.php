@@ -17,7 +17,7 @@ class UserObserver
     public function creating(User $user)
     {
 
-        $user->User_id = Str::uuid()->toString();
+        $user->client_id = Str::uuid()->toString();
 
 
     }

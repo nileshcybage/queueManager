@@ -19,7 +19,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>UUID</th>
+                        <th>Client Id</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Role</th>
@@ -30,7 +30,7 @@
                     @foreach($data as $item)
                     <tr class="item{{$item->id}}">
                         <td>{{$item->id}}</td>
-                        <td>{{$item->uuid}}</td>
+                        <td>{{$item->client_id}}</td>
                         <td>{{ucfirst($item->name)}}</td>
                         <td>{{$item->email}}</td>
                         <td>{{ $item->is_admin == "true" ? 'Admin' : 'User' }}</td>

@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             "email" => 'admin@admin.com',
             "password" => Hash::make('password'),
             "is_admin" => 'true',
-            "uuid" => Str::uuid()->toString()
+            "client_id" => Str::uuid()->toString()
 
         ]);
 
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             "email" => 'editor@editor.com',
             "password" => Hash::make('password'),
             "is_admin" => 'true',
-            "uuid" => Str::uuid()->toString()
+            "client_id" => Str::uuid()->toString()
 
         ]);
 
@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
             "name" => 'carparts',
             "email" => 'carparts@carparts.com',
             "password" => Hash::make('password'),
-            "uuid" => Str::uuid()->toString()
+            "client_id" => Str::uuid()->toString()
         ]);
 
         $shipper1 = DB::table("shippers")->insertGetId([

@@ -35,6 +35,8 @@ class HomeController extends Controller
     public function dashboard()
     {
 
+
+
         $shippers = Shipper::count();
         $users = User::count();
         $shipmentProgress = ShipmentProgress::count();
@@ -52,4 +54,7 @@ class HomeController extends Controller
                 ->with('success', 'Record deleted successfully.');
         }
     }
+
+
+
 }
