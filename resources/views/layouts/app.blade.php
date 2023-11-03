@@ -43,6 +43,8 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         @if(Auth::user())
+                        
+                            @if(Auth::user()->is_admin == 'true')
                             <li class="nav-item active">
                                 <a class="nav-link" href="{{ route('shippers') }}">Shippers<span class="sr-only"></span></a>
                             </li>
@@ -50,6 +52,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('users') }}">Users<span class="sr-only"></span></a>
                             </li>
+                            @endif
 
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('shipment-progress') }}">Shipment Progress<span class="sr-only"></span></a>

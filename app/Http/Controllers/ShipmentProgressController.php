@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ShipmentProgress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ShipmentProgressController extends Controller
 {
@@ -14,7 +15,7 @@ class ShipmentProgressController extends Controller
      */
     public function index()
     {
-       $data = ShipmentProgress::with("shipper","user")->get();
+       $data = ShipmentProgress::where('user_id', Auth::user()->id)->with("shipper","user")->get();
        return view("admin/shipment-progress/index", compact("data"));
         
     }
